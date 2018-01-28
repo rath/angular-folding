@@ -1,17 +1,16 @@
 <idea-plugin>
   <id>com.xrath.plugin.fold</id>
   <name>Angular Component Folding</name>
-  <version>1.1</version>
+  <version>1.2</version>
   <vendor email="rath@xrath.com" url="http://xrath.com">Jang-Ho Hwang</vendor>
 
   <description><![CDATA[
       This plugin groups files which have same name and different extensions.<br>
-      For examples, app.component.ts, app.component.css, app.component.html
-      will be grouped a virtual folder named app.component.
+      For instance, app.component.ts, app.component.css, app.component.html, app.component.spec.ts will be grouped a virtual folder named app.component.
     ]]></description>
 
   <change-notes><![CDATA[
-      Support more extensions for grouping
+      Added *.spec.ts for grouping
     ]]>
   </change-notes>
 
