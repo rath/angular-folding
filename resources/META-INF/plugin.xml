@@ -1,7 +1,7 @@
 <idea-plugin>
   <id>com.xrath.plugin.fold</id>
   <name>Angular Component Folding</name>
-  <version>1.2</version>
+  <version>1.2.1</version>
   <vendor email="rath@xrath.com" url="http://xrath.com">Jang-Ho Hwang</vendor>
 
   <description><![CDATA[
@@ -10,7 +10,7 @@
     ]]></description>
 
   <change-notes><![CDATA[
-      Added *.spec.ts for grouping
+      Added *.spec.ts for grouping with a bug fix
     ]]>
   </change-notes>
 
