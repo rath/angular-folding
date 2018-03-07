@@ -1,8 +1,8 @@
 <idea-plugin>
   <id>com.xrath.plugin.fold</id>
   <name>Angular Component Folding</name>
-  <version>1.2.1</version>
-  <vendor email="rath@xrath.com" url="http://xrath.com">Jang-Ho Hwang</vendor>
+  <version>1.2.2</version>
+  <vendor email="rath@xrath.com" url="https://github.com/rath/angular-folding">Jang-Ho Hwang</vendor>
 
   <description><![CDATA[
       This plugin groups files which have same name and different extensions.<br>
@@ -10,7 +10,7 @@
     ]]></description>
 
   <change-notes><![CDATA[
-      Added *.spec.ts for grouping with a bug fix
+    Added compatibility with WebStorm
     ]]>
   </change-notes>
 
@@ -19,9 +19,7 @@
 
   <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
        on how to target different products -->
-  <!-- uncomment to enable plugin in all products
   <depends>com.intellij.modules.lang</depends>
-  -->
   <extensions defaultExtensionNs="com.intellij">
     <treeStructureProvider implementation="com.xrath.plugin.fold.TreeStructureProvider"/>
   </extensions>
