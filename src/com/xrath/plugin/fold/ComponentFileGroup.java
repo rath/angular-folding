@@ -16,11 +16,14 @@ import java.util.List;
 
 public class ComponentFileGroup extends ProjectViewNode<PsiFile> {
     private final String name;
+    private final String iconType;
     private List<AbstractTreeNode> children;
 
-    protected ComponentFileGroup(Project project, ViewSettings viewSettings, PsiFile directory, String name) {
+    protected ComponentFileGroup(Project project, ViewSettings viewSettings,
+                                 PsiFile directory, String name, String iconType) {
         super(project, directory, viewSettings);
         this.name = name;
+        this.iconType = iconType;
         children = new ArrayList<>();
     }
 
@@ -51,7 +54,10 @@ public class ComponentFileGroup extends ProjectViewNode<PsiFile> {
     @Override
     protected void update(PresentationData presentation) {
         presentation.setPresentableText(name);
-        presentation.setIcon(AllIcons.Nodes.Class);
+        if (iconType.equals("service"))
+            presentation.setIcon(AllIcons.Nodes.Static);
+        else
+            presentation.setIcon(AllIcons.Nodes.Class);
     }
 
     static class NamedFileNode extends PsiFileNode {

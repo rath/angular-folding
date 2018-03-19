@@ -40,10 +40,12 @@ public class TreeStructureProvider implements com.intellij.ide.projectView.TreeS
             String prefix = m.group(1);
             String classType = m.group(2);
             String extension = m.group(3);
-            ComponentFileGroup group = map.get(prefix);
+            final String groupKey = String.format("%s.%s", prefix, classType);
+
+            ComponentFileGroup group = map.get(groupKey);
             if (group == null) {
-                group = new ComponentFileGroup(child.getProject(), viewSettings, psiFile, prefix + "." + classType);
-                map.put(prefix, group);
+                group = new ComponentFileGroup(child.getProject(), viewSettings, psiFile, prefix + "." + classType, classType);
+                map.put(groupKey, group);
                 ret.add(group);
             }
             group.addChild(child, extension);
