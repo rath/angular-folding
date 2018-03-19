@@ -13,7 +13,7 @@ import java.util.regex.Pattern;
 
 public class TreeStructureProvider implements com.intellij.ide.projectView.TreeStructureProvider {
     private final Pattern namePattern =
-            Pattern.compile("(.*)\\.(?:component|service|guard)\\.(css|sass|scss|stylus|styl|less|html|pug|spec\\.ts|ts)", Pattern.CASE_INSENSITIVE);
+            Pattern.compile("(.*)\\.(component|service|guard)\\.(css|sass|scss|stylus|styl|less|html|pug|spec\\.ts|ts)", Pattern.CASE_INSENSITIVE);
 
     @NotNull
     @Override
@@ -38,10 +38,11 @@ public class TreeStructureProvider implements com.intellij.ide.projectView.TreeS
             }
 
             String prefix = m.group(1);
-            String extension = m.group(2);
+            String classType = m.group(2);
+            String extension = m.group(3);
             ComponentFileGroup group = map.get(prefix);
             if (group == null) {
-                group = new ComponentFileGroup(child.getProject(), viewSettings, psiFile, prefix + ".component");
+                group = new ComponentFileGroup(child.getProject(), viewSettings, psiFile, prefix + "." + classType);
                 map.put(prefix, group);
                 ret.add(group);
             }
