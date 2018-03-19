@@ -50,6 +50,18 @@ public class TreeStructureProvider implements com.intellij.ide.projectView.TreeS
             }
             group.addChild(child, extension);
         }
+
+        // Undo grouping that has only child
+        for (int i = 0, len = ret.size(); i < len; i++) {
+            AbstractTreeNode added = ret.get(i);
+            if (added instanceof ComponentFileGroup) {
+                ComponentFileGroup g = (ComponentFileGroup) added;
+                if (g.getChildrenCount() <= 1) {
+                    ret.set(i, g.getOriginalFirstChild());
+                }
+            }
+        }
+
         return ret;
     }
 

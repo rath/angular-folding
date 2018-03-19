@@ -1,7 +1,7 @@
 <idea-plugin>
   <id>com.xrath.plugin.fold</id>
   <name>Angular Component Folding</name>
-  <version>1.2.2</version>
+  <version>1.3.0</version>
   <vendor email="rath@xrath.com" url="https://github.com/rath/angular-folding">Jang-Ho Hwang</vendor>
 
   <description><![CDATA[
@@ -10,7 +10,7 @@
     ]]></description>
 
   <change-notes><![CDATA[
-    Added compatibility with WebStorm
+    Improvements for grouping by types and more
     ]]>
   </change-notes>
 

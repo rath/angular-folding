@@ -41,7 +41,7 @@ public class ComponentFileGroup extends ProjectViewNode<PsiFile> {
     public void addChild(AbstractTreeNode node, String extension) {
         if (node instanceof PsiFileNode) {
             PsiFileNode n  = (PsiFileNode) node;
-            children.add(new NamedFileNode(n.getProject(), n.getValue(), n.getSettings(), "." + extension));
+            children.add(new NamedFileNode(n.getProject(), n.getValue(), n.getSettings(), "." + extension, n));
         }
     }
 
@@ -49,6 +49,20 @@ public class ComponentFileGroup extends ProjectViewNode<PsiFile> {
     @Override
     public List<AbstractTreeNode> getChildren() {
         return children;
+    }
+
+    public AbstractTreeNode getOriginalFirstChild() {
+        if (children.size() == 0)
+            return null;
+        AbstractTreeNode first = children.get(0);
+        if (first instanceof NamedFileNode) {
+            return ((NamedFileNode)first).original;
+        }
+        return first;
+    }
+
+    public int getChildrenCount() {
+        return children.size();
     }
 
     @Override
@@ -62,10 +76,12 @@ public class ComponentFileGroup extends ProjectViewNode<PsiFile> {
 
     static class NamedFileNode extends PsiFileNode {
         private final String name;
+        private final AbstractTreeNode original;
 
-        public NamedFileNode(Project project, PsiFile psiFile, ViewSettings viewSettings, String name) {
+        public NamedFileNode(Project project, PsiFile psiFile, ViewSettings viewSettings, String name, AbstractTreeNode original) {
             super(project, psiFile, viewSettings);
             this.name = name;
+            this.original = original;
         }
         @Override
         public void update(PresentationData presentationData) {
