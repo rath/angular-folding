@@ -1,7 +1,7 @@
 <idea-plugin>
   <id>com.xrath.plugin.fold</id>
   <name>Angular Component Folding</name>
-  <version>1.3.0</version>
+  <version>1.4.0</version>
   <vendor email="rath@xrath.com" url="https://github.com/rath/angular-folding">Jang-Ho Hwang</vendor>
 
   <description><![CDATA[
@@ -10,7 +10,8 @@
     ]]></description>
 
   <change-notes><![CDATA[
-    Improvements for grouping by types and more
+    Group nodes now act as multiple files so that it allows adding git, or delete children at once.
+    Added 'pipe' as group key.
     ]]>
   </change-notes>
 

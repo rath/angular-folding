@@ -14,14 +14,14 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ComponentFileGroup extends ProjectViewNode<PsiFile> {
+public class ComponentFileGroup extends ProjectViewNode<PsiFile[]> {
     private final String name;
     private final String iconType;
     private List<AbstractTreeNode> children;
 
     protected ComponentFileGroup(Project project, ViewSettings viewSettings,
-                                 PsiFile directory, String name, String iconType) {
-        super(project, directory, viewSettings);
+                                 String name, String iconType) {
+        super(project, new PsiFile[0], viewSettings);
         this.name = name;
         this.iconType = iconType;
         children = new ArrayList<>();
@@ -45,13 +45,22 @@ public class ComponentFileGroup extends ProjectViewNode<PsiFile> {
         }
     }
 
+    void freezeChildren() {
+        List<PsiFile> ret = new ArrayList<>();
+        for (AbstractTreeNode n : children) {
+            PsiFile file = (PsiFile)n.getValue();
+            ret.add(file);
+        }
+        setValue(ret.toArray(new PsiFile[ret.size()]));
+    }
+
     @NotNull
     @Override
     public List<AbstractTreeNode> getChildren() {
         return children;
     }
 
-    public AbstractTreeNode getOriginalFirstChild() {
+    AbstractTreeNode getOriginalFirstChild() {
         if (children.size() == 0)
             return null;
         AbstractTreeNode first = children.get(0);

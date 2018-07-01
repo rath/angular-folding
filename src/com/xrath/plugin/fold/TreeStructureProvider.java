@@ -17,7 +17,9 @@ public class TreeStructureProvider implements com.intellij.ide.projectView.TreeS
 
     @NotNull
     @Override
-    public Collection<AbstractTreeNode> modify(@NotNull AbstractTreeNode parent, @NotNull Collection<AbstractTreeNode> children, ViewSettings viewSettings) {
+    public Collection<AbstractTreeNode> modify(@NotNull AbstractTreeNode parent,
+                                               @NotNull Collection<AbstractTreeNode> children,
+                                               ViewSettings viewSettings) {
         if (!(parent.getValue() instanceof PsiDirectory))
             return children;
 
@@ -44,7 +46,8 @@ public class TreeStructureProvider implements com.intellij.ide.projectView.TreeS
 
             ComponentFileGroup group = map.get(groupKey);
             if (group == null) {
-                group = new ComponentFileGroup(child.getProject(), viewSettings, psiFile, prefix + "." + classType, classType);
+                group = new ComponentFileGroup(child.getProject(), viewSettings,
+                       prefix + "." + classType, classType);
                 map.put(groupKey, group);
                 ret.add(group);
             }
@@ -58,6 +61,8 @@ public class TreeStructureProvider implements com.intellij.ide.projectView.TreeS
                 ComponentFileGroup g = (ComponentFileGroup) added;
                 if (g.getChildrenCount() <= 1) {
                     ret.set(i, g.getOriginalFirstChild());
+                } else {
+                    g.freezeChildren();
                 }
             }
         }
