@@ -17,13 +17,13 @@ public class TreeStructureProvider implements com.intellij.ide.projectView.TreeS
 
     @NotNull
     @Override
-    public Collection<AbstractTreeNode<?>> modify(@NotNull AbstractTreeNode<?> parent,
-                                               @NotNull Collection<AbstractTreeNode<?>> children,
+    public Collection<AbstractTreeNode> modify(@NotNull AbstractTreeNode parent,
+                                               @NotNull Collection<AbstractTreeNode> children,
                                                ViewSettings viewSettings) {
         if (!(parent.getValue() instanceof PsiDirectory))
             return children;
 
-        List<AbstractTreeNode<?>> ret = new ArrayList<>();
+        List<AbstractTreeNode> ret = new ArrayList<>();
         Map<String, ComponentFileGroup> map = new HashMap<>();
         for (AbstractTreeNode<?> child : children) {
             if (!(child.getValue() instanceof PsiFile)) {
@@ -70,7 +70,7 @@ public class TreeStructureProvider implements com.intellij.ide.projectView.TreeS
 
     @Nullable
     @Override
-    public Object getData(Collection<AbstractTreeNode<?>> selected, String dataName) {
+    public Object getData(Collection<AbstractTreeNode> selected, String dataName) {
         return null;
     }
 }

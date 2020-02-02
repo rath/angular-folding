@@ -1,7 +1,7 @@
 <idea-plugin>
   <id>com.xrath.plugin.fold</id>
   <name>Angular Component Folding</name>
-  <version>1.4.1</version>
+  <version>1.5.0</version>
   <vendor email="rath@xrath.com" url="https://github.com/rath/angular-folding">Jang-Ho Hwang</vendor>
 
   <description><![CDATA[
@@ -10,7 +10,8 @@
     ]]></description>
 
   <change-notes><![CDATA[
-    Added 'directive' as a group key.
+    Added .haml on supported extensions.
+    Fixed a bug related to collapsed state.
     ]]>
   </change-notes>
 
