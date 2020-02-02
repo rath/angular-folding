@@ -17,15 +17,15 @@ public class TreeStructureProvider implements com.intellij.ide.projectView.TreeS
 
     @NotNull
     @Override
-    public Collection<AbstractTreeNode> modify(@NotNull AbstractTreeNode parent,
-                                               @NotNull Collection<AbstractTreeNode> children,
+    public Collection<AbstractTreeNode<?>> modify(@NotNull AbstractTreeNode<?> parent,
+                                               @NotNull Collection<AbstractTreeNode<?>> children,
                                                ViewSettings viewSettings) {
         if (!(parent.getValue() instanceof PsiDirectory))
             return children;
 
-        List<AbstractTreeNode> ret = new ArrayList<>();
+        List<AbstractTreeNode<?>> ret = new ArrayList<>();
         Map<String, ComponentFileGroup> map = new HashMap<>();
-        for (AbstractTreeNode child : children) {
+        for (AbstractTreeNode<?> child : children) {
             if (!(child.getValue() instanceof PsiFile)) {
                 ret.add(child);
                 continue;
@@ -47,7 +47,7 @@ public class TreeStructureProvider implements com.intellij.ide.projectView.TreeS
             ComponentFileGroup group = map.get(groupKey);
             if (group == null) {
                 group = new ComponentFileGroup(child.getProject(), viewSettings,
-                       prefix + "." + classType, classType);
+                        psiFile, groupKey, classType);
                 map.put(groupKey, group);
                 ret.add(group);
             }
@@ -56,13 +56,11 @@ public class TreeStructureProvider implements com.intellij.ide.projectView.TreeS
 
         // Undo grouping that has only child
         for (int i = 0, len = ret.size(); i < len; i++) {
-            AbstractTreeNode added = ret.get(i);
+            AbstractTreeNode<?> added = ret.get(i);
             if (added instanceof ComponentFileGroup) {
                 ComponentFileGroup g = (ComponentFileGroup) added;
                 if (g.getChildrenCount() <= 1) {
                     ret.set(i, g.getOriginalFirstChild());
-                } else {
-                    g.freezeChildren();
                 }
             }
         }
@@ -72,7 +70,7 @@ public class TreeStructureProvider implements com.intellij.ide.projectView.TreeS
 
     @Nullable
     @Override
-    public Object getData(Collection<AbstractTreeNode> selected, String dataName) {
+    public Object getData(Collection<AbstractTreeNode<?>> selected, String dataName) {
         return null;
     }
 }

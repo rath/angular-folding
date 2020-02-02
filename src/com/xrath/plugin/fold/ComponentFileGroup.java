@@ -14,23 +14,26 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ComponentFileGroup extends ProjectViewNode<PsiFile[]> {
+public class ComponentFileGroup extends ProjectViewNode<PsiFile> {
     private final String name;
     private final String iconType;
-    private List<AbstractTreeNode> children;
+    private final List<AbstractTreeNode<?>> children;
 
-    protected ComponentFileGroup(Project project, ViewSettings viewSettings,
-                                 String name, String iconType) {
-        super(project, new PsiFile[0], viewSettings);
+    protected ComponentFileGroup(Project project,
+                                 ViewSettings viewSettings,
+                                 PsiFile baseFile,
+                                 String name,
+                                 String iconType) {
+        super(project, baseFile, viewSettings);
         this.name = name;
         this.iconType = iconType;
-        children = new ArrayList<>();
+        this.children = new ArrayList<>();
     }
 
     @Override
     public boolean contains(@NotNull VirtualFile file) {
-        for (AbstractTreeNode childNode : children) {
-            ProjectViewNode treeNode = (ProjectViewNode) childNode;
+        for (AbstractTreeNode<?> childNode : children) {
+            ProjectViewNode<?> treeNode = (ProjectViewNode<?>) childNode;
             if (treeNode.contains(file)) {
                 return true;
             }
@@ -38,32 +41,23 @@ public class ComponentFileGroup extends ProjectViewNode<PsiFile[]> {
         return false;
     }
 
-    public void addChild(AbstractTreeNode node, String extension) {
+    public void addChild(AbstractTreeNode<?> node, String extension) {
         if (node instanceof PsiFileNode) {
             PsiFileNode n  = (PsiFileNode) node;
             children.add(new NamedFileNode(n.getProject(), n.getValue(), n.getSettings(), "." + extension, n));
         }
     }
 
-    void freezeChildren() {
-        List<PsiFile> ret = new ArrayList<>();
-        for (AbstractTreeNode n : children) {
-            PsiFile file = (PsiFile)n.getValue();
-            ret.add(file);
-        }
-        setValue(ret.toArray(new PsiFile[ret.size()]));
-    }
-
     @NotNull
     @Override
-    public List<AbstractTreeNode> getChildren() {
+    public List<AbstractTreeNode<?>> getChildren() {
         return children;
     }
 
-    AbstractTreeNode getOriginalFirstChild() {
+    AbstractTreeNode<?> getOriginalFirstChild() {
         if (children.size() == 0)
             return null;
-        AbstractTreeNode first = children.get(0);
+        AbstractTreeNode<?> first = children.get(0);
         if (first instanceof NamedFileNode) {
             return ((NamedFileNode)first).original;
         }
@@ -85,13 +79,14 @@ public class ComponentFileGroup extends ProjectViewNode<PsiFile[]> {
 
     static class NamedFileNode extends PsiFileNode {
         private final String name;
-        private final AbstractTreeNode original;
+        private final AbstractTreeNode<?> original;
 
-        public NamedFileNode(Project project, PsiFile psiFile, ViewSettings viewSettings, String name, AbstractTreeNode original) {
+        public NamedFileNode(Project project, PsiFile psiFile, ViewSettings viewSettings, String name, AbstractTreeNode<?> original) {
             super(project, psiFile, viewSettings);
             this.name = name;
             this.original = original;
         }
+
         @Override
         public void update(PresentationData presentationData) {
             super.update(presentationData);
