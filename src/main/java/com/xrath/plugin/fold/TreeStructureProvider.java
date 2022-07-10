@@ -13,18 +13,21 @@ import java.util.regex.Pattern;
 
 public class TreeStructureProvider implements com.intellij.ide.projectView.TreeStructureProvider {
     private final Pattern namePattern =
-            Pattern.compile("(.*)\\.(component|service|pipe|guard|directive)\\.(css|sass|scss|stylus|styl|less|html|haml|pug|spec\\.ts|ts)", Pattern.CASE_INSENSITIVE);
+            Pattern.compile("(.*)\\.(component|service|pipe|guard|directive)\\.(css|sass|scss|stylus|styl|less|html|haml|pug|spec\\.ts|ts|js)", Pattern.CASE_INSENSITIVE);
 
-    @NotNull
+
     @Override
-    public Collection<AbstractTreeNode> modify(@NotNull AbstractTreeNode parent,
-                                               @NotNull Collection<AbstractTreeNode> children,
-                                               ViewSettings viewSettings) {
+    public @NotNull Collection<AbstractTreeNode<?>> modify(
+            @NotNull AbstractTreeNode<?> parent,
+            @NotNull Collection<AbstractTreeNode<?>> children,
+            ViewSettings viewSettings) {
+
         if (!(parent.getValue() instanceof PsiDirectory))
             return children;
 
-        List<AbstractTreeNode> ret = new ArrayList<>();
+        List<AbstractTreeNode<?>> ret = new ArrayList<>();
         Map<String, ComponentFileGroup> map = new HashMap<>();
+
         for (AbstractTreeNode<?> child : children) {
             if (!(child.getValue() instanceof PsiFile)) {
                 ret.add(child);
@@ -68,9 +71,8 @@ public class TreeStructureProvider implements com.intellij.ide.projectView.TreeS
         return ret;
     }
 
-    @Nullable
     @Override
-    public Object getData(Collection<AbstractTreeNode> selected, String dataName) {
-        return null;
+    public @Nullable Object getData(@NotNull Collection<AbstractTreeNode<?>> selected, @NotNull String dataId) {
+        return com.intellij.ide.projectView.TreeStructureProvider.super.getData(selected, dataId);
     }
 }
