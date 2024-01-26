@@ -13,7 +13,7 @@ import java.util.regex.Pattern;
 
 public class TreeStructureProvider implements com.intellij.ide.projectView.TreeStructureProvider {
     private final Pattern namePattern =
-            Pattern.compile("(.*)\\.(component|service|pipe|guard|directive|actions|effects|reducer|selectors|state|resolver)\\.(css|sass|scss|stylus|styl|less|html|svg|haml|pug|spec|stories\\.ts|ts)", Pattern.CASE_INSENSITIVE);
+            Pattern.compile("(.*)\\.(component|service|pipe|guard|directive|actions|effects|reducer|selectors|state|resolver|page)\\.(css|sass|scss|stylus|styl|less|html|svg|haml|pug|spec|stories\\.ts|ts)", Pattern.CASE_INSENSITIVE);
 
     @Override
     public @NotNull Collection<AbstractTreeNode<?>> modify(
