@@ -4,9 +4,13 @@ import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.components.PersistentStateComponent;
 import com.intellij.openapi.components.State;
 import com.intellij.openapi.components.Storage;
+import com.intellij.openapi.ui.Messages;
 import com.intellij.util.xmlb.XmlSerializerUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
 
 @State(
         name = "PluginSettingsState",
@@ -35,7 +39,13 @@ public class PluginSettingsState implements PersistentStateComponent<PluginSetti
         return namePattern;
     }
 
-    public void setNamePattern(String namePattern) {
-        this.namePattern = namePattern;
+    public void setNamePattern(String pattern) {
+        try {
+            Pattern.compile(pattern);
+            this.namePattern = pattern;
+        } catch (PatternSyntaxException e) {
+            Messages.showErrorDialog("Invalid pattern", "Error");
+            throw new IllegalArgumentException(".", e);
+        }
     }
 }
