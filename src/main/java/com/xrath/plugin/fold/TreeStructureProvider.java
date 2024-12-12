@@ -4,6 +4,7 @@ import com.intellij.ide.projectView.ViewSettings;
 import com.intellij.ide.util.treeView.AbstractTreeNode;
 import com.intellij.psi.PsiDirectory;
 import com.intellij.psi.PsiFile;
+import com.xrath.plugin.fold.settings.PluginSettingsState;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -12,14 +13,19 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class TreeStructureProvider implements com.intellij.ide.projectView.TreeStructureProvider {
-    private final Pattern namePattern =
-            Pattern.compile("(.*)\\.(component|service|pipe|guard|directive|actions|effects|reducer|selectors|state|resolver)\\.(css|sass|scss|stylus|styl|less|html|svg|haml|pug|spec|stories\\.ts|ts)", Pattern.CASE_INSENSITIVE);
+
+    private Pattern getNamePattern() {
+        String pattern = PluginSettingsState.getInstance().getNamePattern();
+        return Pattern.compile(pattern, Pattern.CASE_INSENSITIVE);
+    }
 
     @Override
     public @NotNull Collection<AbstractTreeNode<?>> modify(
             @NotNull AbstractTreeNode<?> parent,
             @NotNull Collection<AbstractTreeNode<?>> children,
             ViewSettings viewSettings) {
+
+        Pattern namePattern = getNamePattern();
 
         if (!(parent.getValue() instanceof PsiDirectory))
             return children;
