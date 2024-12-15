@@ -11,7 +11,7 @@ public class PluginSettings implements Configurable {
 
     @Override
     public @Nls(capitalization = Nls.Capitalization.Title) String getDisplayName() {
-        return "Angular Folding Plugin";
+        return "Angular Component Folding";
     }
 
     @Override
