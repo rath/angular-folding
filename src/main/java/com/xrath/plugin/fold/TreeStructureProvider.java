@@ -75,9 +75,4 @@ public class TreeStructureProvider implements com.intellij.ide.projectView.TreeS
 
         return ret;
     }
-
-    @Override
-    public @Nullable Object getData(@NotNull Collection<AbstractTreeNode<?>> selected, @NotNull String dataId) {
-        return com.intellij.ide.projectView.TreeStructureProvider.super.getData(selected, dataId);
-    }
 }
