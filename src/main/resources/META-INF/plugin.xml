@@ -1,28 +1,31 @@
 <idea-plugin>
-  <id>com.xrath.plugin.fold</id>
-  <name>Angular Component Folding</name>
-  <version>1.6.0</version>
-  <vendor email="rath@xrath.com" url="https://github.com/rath/angular-folding">Jang-Ho Hwang</vendor>
+    <id>com.xrath.plugin.fold</id>
+    <name>Angular Component Folding</name>
+    <version>1.7.0</version>
+    <vendor email="rath@xrath.com" url="https://github.com/rath/angular-folding">Jang-Ho Hwang</vendor>
 
-  <description><![CDATA[
+    <description><![CDATA[
       This plugin groups files which have same name and different extensions.<br>
       For instance, app.component.ts, app.component.css, app.component.html, app.component.spec.ts will be grouped a virtual folder named app.component.
     ]]></description>
 
-  <change-notes><![CDATA[
+    <change-notes><![CDATA[
     Added .svg on supported extensions.
     Redux support by adding actions, effects, reducer, selectors patterns.
     ]]>
-  </change-notes>
+    </change-notes>
 
-  <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
-  <idea-version since-build="162"/>
+    <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
+    <idea-version since-build="162" until-build="243.*"/>
 
-  <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
-       on how to target different products -->
-  <depends>com.intellij.modules.platform</depends>
-  <extensions defaultExtensionNs="com.intellij">
-    <treeStructureProvider implementation="com.xrath.plugin.fold.TreeStructureProvider"/>
-  </extensions>
+    <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
+         on how to target different products -->
+    <depends>com.intellij.modules.platform</depends>
+    <extensions defaultExtensionNs="com.intellij">
+        <treeStructureProvider implementation="com.xrath.plugin.fold.TreeStructureProvider"/>
+        <applicationConfigurable instance="com.xrath.plugin.fold.settings.PluginSettings"
+                                 displayName="Angular Component Folding"/>
+        <applicationService serviceImplementation="com.xrath.plugin.fold.settings.PluginSettingsState"/>
+    </extensions>
 
 </idea-plugin>

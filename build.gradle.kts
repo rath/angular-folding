@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "com.xrath.plugin"
-version = "1.6.0"
+version = "1.7.0"
 
 repositories {
     mavenCentral()
@@ -27,7 +27,7 @@ tasks {
 
     patchPluginXml {
         sinceBuild.set("162")
-        untilBuild.set("222.*")
+        untilBuild.set("243.*")
     }
 
     signPlugin {
