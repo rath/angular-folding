@@ -10,8 +10,7 @@
     ]]></description>
 
     <change-notes><![CDATA[
-    Added .svg on supported extensions.
-    Redux support by adding actions, effects, reducer, selectors patterns.
+      You can now directly edit the file name patterns for grouping in the settings UI.
     ]]>
     </change-notes>
 
@@ -27,5 +26,4 @@
                                  displayName="Angular Component Folding"/>
         <applicationService serviceImplementation="com.xrath.plugin.fold.settings.PluginSettingsState"/>
     </extensions>
-
 </idea-plugin>
